@@ -1,0 +1,20 @@
+name: uls-infra
+
+services:
+  database:
+    container_name: uls-pg
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=uls
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+    expose:
+      - "6000"
+    ports:
+      - "6000:6000"
+    command: -p 6000
+    volumes:
+      - database:/data/postgres
+
+volumes:
+  database:
