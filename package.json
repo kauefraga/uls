@@ -1,0 +1,4 @@
+{
+  "name": "uls",
+  "workspaces": ["packages/*"]
+}

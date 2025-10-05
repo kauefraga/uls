@@ -1,0 +1,24 @@
+{
+  "name": "@uls/api",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun run --watch src/index.ts"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.0",
+    "@elysiajs/jwt": "^1.4.0",
+    "@elysiajs/openapi": "^1.4.11",
+    "argon2": "^0.44.0",
+    "drizzle-orm": "^0.44.6",
+    "elysia": "latest",
+    "pg": "^8.16.3",
+    "zod": "^4.1.11"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.15.5",
+    "bun-types": "latest",
+    "drizzle-kit": "^0.31.5"
+  },
+  "module": "src/index.js"
+}
