@@ -18,8 +18,8 @@ export const Organizations = pgTable('organizations', {
 
 export const Sales = pgTable('sales', {
   id: integer().primaryKey().generatedAlwaysAsIdentity(),
-  userId: uuid().references(() => Users.id).notNull(),
+  userId: uuid('user_id').references(() => Users.id).notNull(),
   description: varchar({ length: 255 }).notNull(),
   priceInCents: integer('price_in_cents').notNull(),
-  createdAt: timestamp().notNull().defaultNow(),
+  createdAt: timestamp('created_at').notNull().defaultNow(),
 });
