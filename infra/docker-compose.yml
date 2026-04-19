@@ -3,7 +3,7 @@ name: uls-infra
 services:
   database:
     container_name: uls-pg
-    image: postgres:latest
+    image: docker.io/library/postgres:latest
     environment:
       - POSTGRES_DB=uls
       - POSTGRES_USER=docker
