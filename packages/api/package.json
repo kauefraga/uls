@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "migrate": "bun drizzle-kit migrate",
+    "mock": "bun run src/database/mock-data.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.0",
