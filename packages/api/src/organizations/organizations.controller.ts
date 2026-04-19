@@ -18,46 +18,58 @@ const OrganizationsResponse = z.object({
 });
 
 export const OrganizationsController = new Elysia()
-  .use(jwt({
-    name: 'jwt',
-    secret: env.JWT_SECRET,
-  }))
-  .get('/v1/organizations/:id', async ({ status, params }) => {
-    // TODO authorization
-
-    const [organization] = await db
-      .select({
-        ...getTableColumns(Organizations),
-        createdAt: sql`to_char(${Organizations.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`.mapWith(String),
-      })
-      .from(Organizations)
-      .where(eq(Organizations.id, params.id))
-      .limit(1);
-
-    return status(200, organization);
-  },
-  {
-    params: z.object({
-      id: z.uuidv4(),
+  .use(
+    jwt({
+      name: 'jwt',
+      secret: env.JWT_SECRET,
     }),
-    response: {
-      200: OrganizationResponse,
-    },
-  })
-  .get('/v1/organizations', async ({ status }) => {
-    const organizations = await db
-      .select({
-        ...getTableColumns(Organizations),
-        createdAt: sql`to_char(${Organizations.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`.mapWith(String),
-      })
-      .from(Organizations);
+  )
+  .get(
+    '/v1/organizations/:id',
+    async ({ status, params }) => {
+      // TODO authorization
 
-    return status(200, {
-      organizations: organizations
-    });
-  },
-  {
-    response: {
-      200: OrganizationsResponse,
+      const [organization] = await db
+        .select({
+          ...getTableColumns(Organizations),
+          createdAt:
+            sql`to_char(${Organizations.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`.mapWith(
+              String,
+            ),
+        })
+        .from(Organizations)
+        .where(eq(Organizations.id, params.id))
+        .limit(1);
+
+      return status(200, organization);
     },
-  });
+    {
+      params: z.object({
+        id: z.uuidv4(),
+      }),
+      response: {
+        200: OrganizationResponse,
+      },
+    },
+  )
+  .get(
+    '/v1/organizations',
+    async ({ status }) => {
+      const organizations = await db
+        .select({
+          ...getTableColumns(Organizations),
+          createdAt:
+            sql`to_char(${Organizations.createdAt}, 'YYYY-MM-DD"T"HH24:MI:SS"Z"')`.mapWith(
+              String,
+            ),
+        })
+        .from(Organizations);
+
+      return status(200, { organizations });
+    },
+    {
+      response: {
+        200: OrganizationsResponse,
+      },
+    },
+  );
